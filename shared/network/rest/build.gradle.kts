@@ -1,5 +1,5 @@
-import app.futured.kmptemplate.gradle.configuration.ProductFlavors
-import app.futured.kmptemplate.gradle.configuration.ProjectSettings
+import com.energopro.gradle.configuration.ProductFlavors
+import com.energopro.gradle.configuration.ProjectSettings
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 

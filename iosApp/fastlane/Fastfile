@@ -1,6 +1,6 @@
-ENV['APP_IDENTIFIER'] = 'app.futured.***'
-ENV['APP_NAME'] = '***'
-ENV['APP_SCHEME'] = '***'
+ENV['APP_IDENTIFIER'] = 'com.energopro'
+ENV['APP_NAME'] = 'Energopro'
+ENV['APP_SCHEME'] = 'Energopro'
 
 ENV['BADGE_DARK'] = 'true'
 

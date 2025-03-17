@@ -29,7 +29,7 @@ jobs:
       BUNDLE_GRADLE_TASK: bundleRelease
       SIGNING_KEYSTORE_PATH: androidApp/keystore/release.keystore
       # TODO PROJECT-SETUP This has to be applicationId
-      GOOGLE_PLAY_APPLICATION_ID: app.futured.kmptemplate.android
+      GOOGLE_PLAY_APPLICATION_ID: com.energopro.android
       GOOGLE_PLAY_WHATSNEW_DIRECTORY: androidApp/whatsnew
       # TODO PROJECT-SETUP verify product flavor configuration
       # Specifies API environment for KMP build.

@@ -1,4 +1,4 @@
-import app.futured.kmptemplate.gradle.configuration.ProjectSettings
+import com.energopro.gradle.configuration.ProjectSettings
 
 plugins {
     alias(libs.plugins.android.application)

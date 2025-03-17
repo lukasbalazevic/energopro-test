@@ -1,4 +1,4 @@
-import app.futured.kmptemplate.gradle.task.LintCheckTask
+import com.energopro.gradle.task.LintCheckTask
 import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 
 plugins {

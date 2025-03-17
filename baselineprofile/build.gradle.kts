@@ -1,4 +1,4 @@
-import app.futured.kmptemplate.gradle.configuration.ProjectSettings
+import com.energopro.gradle.configuration.ProjectSettings
 import com.android.build.api.dsl.ManagedVirtualDevice
 
 plugins {

@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KMP_Futured_template"
+rootProject.name = "Energopro"
 
 // https://docs.gradle.org/8.1.1/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

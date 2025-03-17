@@ -1,4 +1,4 @@
-import app.futured.kmptemplate.gradle.configuration.ProjectSettings
+import com.energopro.gradle.configuration.ProjectSettings
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 

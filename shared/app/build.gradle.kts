@@ -1,4 +1,4 @@
-import app.futured.kmptemplate.gradle.configuration.ProjectSettings
+import com.energopro.gradle.configuration.ProjectSettings
 import co.touchlab.skie.configuration.DefaultArgumentInterop
 import co.touchlab.skie.configuration.EnumInterop
 import co.touchlab.skie.configuration.FlowInterop
