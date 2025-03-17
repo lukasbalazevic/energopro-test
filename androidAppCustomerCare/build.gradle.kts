@@ -21,7 +21,7 @@ android {
     compileSdk = ProjectSettings.Android.CompileSdkVersion
 
     defaultConfig {
-        applicationId = ProjectSettings.Android.ApplicationId
+        applicationId = ProjectSettings.Android.CustomerCare.ApplicationId
         minSdk = ProjectSettings.Android.MinSdkVersion
         targetSdk = ProjectSettings.Android.TargetSdkVersion
         versionCode = ProjectSettings.Android.VersionCode
@@ -42,15 +42,15 @@ android {
     signingConfigs {
         getByName(ProjectSettings.Android.BuildTypes.Debug) {
             storeFile = file("keystore/debug.keystore")
-            storePassword = ProjectSettings.Android.Signing.Debug.StorePassword
-            keyAlias = ProjectSettings.Android.Signing.Debug.KeyAlias
-            keyPassword = ProjectSettings.Android.Signing.Debug.KeyPassword
+            storePassword = ProjectSettings.Android.CustomerCare.Signing.Debug.StorePassword
+            keyAlias = ProjectSettings.Android.CustomerCare.Signing.Debug.KeyAlias
+            keyPassword = ProjectSettings.Android.CustomerCare.Signing.Debug.KeyPassword
         }
         create(ProjectSettings.Android.BuildTypes.Release) {
             storeFile = file("keystore/todo_your_release_keystore.keystore")
-            storePassword = ProjectSettings.Android.Signing.Release.StorePassword
-            keyAlias = ProjectSettings.Android.Signing.Release.KeyAlias
-            keyPassword = ProjectSettings.Android.Signing.Release.KeyPassword
+            storePassword = ProjectSettings.Android.CustomerCare.Signing.Release.StorePassword
+            keyAlias = ProjectSettings.Android.CustomerCare.Signing.Release.KeyAlias
+            keyPassword = ProjectSettings.Android.CustomerCare.Signing.Release.KeyPassword
         }
     }
 
@@ -98,7 +98,7 @@ dependencies {
     coreLibraryDesugaring(libs.androidTools.desugarLibs)
     lintChecks(libs.lint.compose)
 
-    implementation(projects.shared.app)
+    implementation(projects.shared.appCustomerCare)
     implementation(projects.shared.feature)
     implementation(projects.shared.platform)
     implementation(projects.shared.arkitektDecompose)
@@ -122,5 +122,5 @@ dependencies {
     implementation(libs.logging.timber)
 
     implementation(libs.androidx.profileinstaller)
-    baselineProfile(projects.baselineprofile)
+    baselineProfile(projects.baselineprofileCustomerCare)
 }
