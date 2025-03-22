@@ -1,10 +1,11 @@
+
 # **Solution Design Document (SDD)**
 
 ## **1. Úvod**
 
 ### **1.1 Cieľ dokumentu**
 
-Tento dokument popisuje návrh riešenia pre Sales aplikáciu (Android [Tablet]) a Customer Care aplikácie (Android & iOS). Dokument sa sústreďuje na minimálne verzie aplikácií a pokrýva ich architektúru, funkčné požiadavky, ne-funkčné požiadavky a návrh integrácií s externými systémami.
+Tento dokument popisuje návrh riešenia pre Sales aplikáciu (Android [Tablet]) a Customer Care aplikácie (Android & iOS). Dokument sa sústreďuje na ich architektúru, funkčné požiadavky, ne-funkčné požiadavky a návrh integrácií s externými systémami.
 
 ### **1.2 Rozsah riešenia**
 
@@ -58,48 +59,80 @@ Dokument je určený pre:
 
 ### **2.3 Technologický stack**
 
-✅ **Frontend:**
+Projekt je vyvíjaný ako **jeden Gradle projekt s Kotlin Multiplatform (KMP)**. Obsahuje **zdieľané moduly (Shared Modules)**, ktoré využívajú obe aplikácie – **Sales aplikácia a Customer Care aplikácia**.
 
-- **Sales aplikácia** je natívna Android aplikácia napísaná v **Kotlin**, ktorá ale zdieľa **network modul v KMM** so **Customer Care aplikáciou**.
-- **Customer Care aplikácia** je **KMP projekt**, kde je Android a iOS verzia vyvíjaná v **Kotlin Multiplatform Mobile (KMM)**.
+#### **Zdieľaný modul v KMP**
+
+Zdieľaný modul obsahuje **dva umbrella projekty**:
+
+-   **App Sales** – Obsahuje **Network modul**, ktorý je využívaný v Sales aplikácii.
+
+-   **App Customer Care** – Obsahuje zdieľané komponenty a základnú logiku pre Customer Care aplikáciu.
+
+
+Každá aplikácia importuje svoj príslušný **umbrella projekt**. Rozdiel spočíva v tom, aké ďalšie **zdieľané moduly** sú súčasťou jednotlivých aplikácií.
+
+#### **Architektúra aplikácií**
+
+-   **Sales aplikácia** je **KMP projekt s natívnym Android UI**, určená pre **Android tablety**. Používa **navigáciu a ViewModely natívne v Androide** a z KMP využíva **iba Network modul**.
+
+-   **Customer Care aplikácia** je **plne KMP aplikácia**. **Navigácia aj logika** sú implementované v KMP, natívne je len **UI pre Android a iOS**.
+
+
+#### **Zdieľané moduly v KMP**
+
+-   **Networking** – Poskytuje komunikáciu medzi aplikáciami a backendovým systémom.
+
+-   **Dátové modely** – Obsahuje spoločné dátové štruktúry používané v oboch aplikáciách.
+### **2.4 Minimálne podporované verzie**
+
+-   **iOS**: Aplikácia bude podporovať **aktuálnu verziu iOS-u v dobe vydania mínus dve hlavné verzie**.
+
+    -   **Predpoklad pre koniec roka 2024**: Ak bude v tom čase aktuálna verzia **iOS 18**, aplikácia bude podporovať **iOS 16 a novšie**.
+
+-   **Android**: Aplikácia bude podporovať **aktuálnu najnovšiu verziu Android-u v dobe vydania aplikácie mínus štyri hlavné verzie**.
+
+    -   **Predpoklad pre koniec roka 2024**: Ak bude v tom čase aktuálna verzia **Android 15**, aplikácia bude podporovať **Android 11 a novšie**.
+
+
+Tieto podmienky zabezpečia kompatibilitu s väčšinou moderných zariadení a zároveň umožnia využitie nových technológií bez potreby podporovania zastaraných verzií systémov.
+
+### **2.5 Deployment aplikácií**
+
+#### **Customer Care aplikácie**
+
+Customer Care aplikácie budú vydané do **oficiálnych storov Google Play a Apple App Store**, pričom budú spĺňať všetky požiadavky pre schválenie publikácie.
+
+#### **Sales aplikácia**
+
+Sales aplikácia na tablety nebude vydaná do oficiálnych storov. Spôsob distribúcie bude riešený cez **interný systém distribúcie**. Aplikácia bude doručovaná klientom priamo prostredníctvom **Samsung Knox Managed**.
+
+#### **Samsung Knox Managed**
+
+**Samsung Knox Managed** bude využitý na správu a zabezpečenie zariadení, na ktorých bude Sales aplikácia nasadená:
+
+-   **Centralizovaná správa** – Umožňuje vzdialené nastavenie a aktualizáciu aplikácií a konfigurácií na zariadeniach.
+
+-   **Bezpečnostné politiky** – Obmedzuje prístup k určitým aplikáciám a dátam, zabezpečuje zariadenia proti neautorizovanému prístupu.
+
+-   **Kontrola nad aplikáciami** – Správcovia môžu povoliť alebo zakázať inštaláciu aplikácií a ich používanie.
+
+-   **Monitorovanie v reálnom čase** – Poskytuje prehľad o stave zariadení, ich bezpečnosti a využívaní.
+
+-   **Vzdialené ovládanie zariadení** – V prípade straty alebo odcudzenia umožňuje vzdialené uzamknutie, vymazanie alebo reset zariadenia.
+
+-   **Automatizovaná registrácia** – Nové zariadenia je možné automaticky nastaviť a pridať do podnikovej siete bez manuálnej konfigurácie.
+
+
+#### **Aktualizácie a správa**
+
+Aktualizácie Sales aplikácie budú distribuované priamo cez **Samsung Knox Managed**, pričom používatelia dostanú push notifikácie o dostupnosti novej verzie. Tento systém taktiež zabezpečí monitoring a správu zariadení, ochranu dát a vzdialené blokovanie alebo vymazanie údajov v prípade straty alebo odcudzenia zariadenia.
+
+
+
 
 ## **3. Architektúra systému**
 
 Diagram obsahujúci odhady, scope a nacenenie bude doplnený. Na základe neho budú vytvorené epiky.
 
 ---
-
-## **4. Business prehlad**
-
-### **4.1 Sales aplikácia**
-
-| Funkcionalita      | Popis                           | Epika                | Riziko (MD) | Android |
-| ------------------ | ------------------------------- | -------------------- | ----------- | ------- |
-| Založení projektu  | Nastavenie repozitára, CI/CD    | Nefunkčné požiadavky | -           | 5       |
-| Networking         | Autentifikácia, tokeny          | Nefunkčné požiadavky | -           | 10      |
-| Internacionalizace | Jazyková podpora                | Nefunkčné požiadavky | -           | 3       |
-| Contracts Overview | Prehľad kontraktov              | Contracts Overview   | -           | 12      |
-| Scan ID            | Skenovanie občianskeho preukazu | Scan ID              | -           | 10      |
-
-### **4.2 Customer Care aplikácia - Fáza 1**
-
-| Funkcionalita          | Popis                     | Epika                | Riziko (MD) | KMP | Android | iOS |
-| ---------------------- | ------------------------- | -------------------- | ----------- | --- | ------- | --- |
-| Založení projektu      | Nastavenie repozitára     | Nefunkčné požiadavky | -           | 4   | 1       | 1   |
-| Internacionalizace     | Jazyková podpora          | Nefunkčné požiadavky | -           | 3   | 1       | 1   |
-| Dark mode              | Podpora tmavého režimu    | Nefunkčné požiadavky | -           | 0   | 2       | 2   |
-| Profile - zmena údajov | Úprava profilových údajov | Profile              | -           | 2   | 2       | 2   |
-
-### **4.3 Customer Care aplikácia - Fáza 2**
-
-| Funkcionalita      | Popis                          | Epika      | Riziko (MD) | KMP | Android | iOS |
-| ------------------ | ------------------------------ | ---------- | ----------- | --- | ------- | --- |
-| Design system      | Rozšírenie dizajnového systému | Design     | -           | 0   | 7       | 7   |
-| Consumption Graphs | Zobrazenie spotreby            | Graphs     | -           | 2   | 8       | 8   |
-| Self-Read          | Samoodpočet                    | POD detail | -           | 3   | 15      | 15  |
-| Share POD          | Zdieľanie odberného miesta     | POD detail | -           | 3   | 7       | 7   |
-| Activities         | História aktivít               | Activities | -           | 5   | 7       | 7   |
-| Requests           | Podávanie požiadaviek          | Requests   | -           | 5   | 5       | 5   |
-
-Tieto epiky sú odvodené na základe dodaných odhadov a sú zaradené podľa dôležitosti a plánovania do fáz vývoja aplikácie.
-

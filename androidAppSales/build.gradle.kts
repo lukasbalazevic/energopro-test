@@ -98,11 +98,12 @@ dependencies {
     coreLibraryDesugaring(libs.androidTools.desugarLibs)
     lintChecks(libs.lint.compose)
 
+    implementation(libs.bundles.support)
+
     implementation(projects.shared.appSales)
-    implementation(projects.shared.feature)
     implementation(projects.shared.platform)
-    implementation(projects.shared.arkitektDecompose)
     implementation(projects.shared.resources)
+    implementation(projects.shared.network)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)

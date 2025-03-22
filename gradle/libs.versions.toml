@@ -3,10 +3,13 @@ agp = "8.9.0"
 kotlin = "2.1.10"
 ksp = "2.1.10-1.0.31" # Must be compatible with: `kotlin`
 desugarLibs = "1.1.5"
-androidxLifecycle = "2.8.6"
+androidxLifecycle = "2.8.7"
 androidxComposeBom = "2024.10.00"
 jetbrainsComposeRuntime = "1.7.0" # Needs to align with version in Compose BOM as closely as possible
-androidxActivity = "1.9.2"
+androidxActivity = "1.9.3"
+androidx = "1.15.0"
+appcompat = "1.7.0"
+preference = "1.2.1"
 decompose = "3.1.0"
 essenty = "2.1.0"
 koin = "3.5.6"
@@ -87,6 +90,17 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
+
+
+
+
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime", version.ref = "androidxLifecycle" }
+androidx-preferences = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+
 
 # Decompose
 decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
@@ -171,6 +185,15 @@ conventions-lint = { id = "conventions-lint" }
 conventions-annotationProcessing = { id = "conventions-annotations-processor" }
 
 [bundles]
+
+support = [
+    "androidx-appcompat",
+    "androidx-core-ktx",
+    "androidx-lifecycle-viewmodel",
+    "androidx-lifecycle-runtime",
+    "androidx-activity-ktx",
+]
+
 compose = [
     "androidx-compose-runtime",
     "androidx-compose-foundation",

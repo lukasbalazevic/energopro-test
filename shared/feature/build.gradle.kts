@@ -48,7 +48,6 @@ kotlin {
                 implementation(libs.kotlinx.dateTime)
                 implementation(libs.jetbrains.compose.runtime)
 
-                implementation(projects.shared.network.graphql)
                 implementation(projects.shared.network.rest)
                 implementation(projects.shared.persistence)
                 implementation(projects.shared.arkitektDecompose)
