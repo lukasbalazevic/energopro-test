@@ -1,58 +1,38 @@
 package com.energopro.android
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.energopro.android.ui.navigation.RootNavHostUi
-import com.energopro.feature.navigation.root.RootNavHost
-import com.energopro.feature.navigation.root.RootNavHostFactory
-import com.energopro.feature.ui.base.DefaultAppComponentContext
-import com.arkivanov.decompose.retainedComponent
+import com.energopro.android.ui.navigation.NavGraph
+import org.koin.androidx.compose.KoinAndroidContext
+import org.koin.core.annotation.KoinExperimentalAPI
 
-class MainActivity : ComponentActivity() {
-
-    private lateinit var rootNavHost: RootNavHost
+@OptIn(KoinExperimentalAPI::class)
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        rootNavHost = retainedComponent { retainedContext ->
-            RootNavHostFactory.create(DefaultAppComponentContext(retainedContext))
-        }
-        rootNavHost.handleIntent(intent)
 
         enableEdgeToEdge()
         setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    RootNavHostUi(navHost = rootNavHost)
+            KoinAndroidContext {
+                MyApplicationTheme {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background,
+                    ) {
+                        NavGraph(false)
+                    }
                 }
             }
         }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        rootNavHost.handleIntent(intent)
-    }
-
-    private fun RootNavHost.handleIntent(intent: Intent?) {
-        if (intent == null) {
-            return
-        }
-
-        val uri = intent.dataString ?: return
-        actions.onDeepLink(uri)
     }
 }
 

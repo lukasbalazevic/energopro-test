@@ -1,46 +1,54 @@
 package com.energopro.android.ui.navigation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.energopro.android.ui.screen.LoginScreenUi
-import com.energopro.feature.navigation.root.RootChild
-import com.energopro.feature.navigation.root.RootConfig
-import com.energopro.feature.navigation.root.RootNavHost
-import com.arkivanov.decompose.router.slot.ChildSlot
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.energopro.android.navigation.Destination
+import com.energopro.android.navigation.NavRouter
+import com.energopro.android.navigation.NavRouterImpl
+import com.energopro.android.navigation.composableDialog
+import com.energopro.android.navigation.composableScreen
+import com.energopro.android.navigation.dialogs
+import com.energopro.android.navigation.screens
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
-fun RootNavHostUi(
-    navHost: RootNavHost,
-    modifier: Modifier = Modifier,
+fun NavGraph(
+    isFirstRun: Boolean,
+    navController: NavHostController = rememberNavController(),
+    navigation: NavRouter = remember { NavRouterImpl(navController) },
 ) {
-    val slot: ChildSlot<RootConfig, RootChild> by navHost.slot.collectAsStateWithLifecycle()
+    val startDestination = if (isFirstRun) {
+        Destination.Home.route
+    } else {
+        Destination.Login.route
+    }
 
-    Box(modifier.background(MaterialTheme.colorScheme.background)) {
-        when (val childInstance = slot.child?.instance) {
-            is RootChild.Login -> LoginScreenUi(screen = childInstance.screen, modifier = Modifier.fillMaxSize())
-            is RootChild.SignedIn -> SignedInNavHostUi(navHost = childInstance.navHost, modifier = Modifier.fillMaxSize())
-            null -> ApplicationLoading(Modifier.fillMaxSize())
+    Scaffold(
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = startDestination,
+            modifier = Modifier
+                .padding(innerPadding)
+                .consumeWindowInsets(innerPadding),
+        ) {
+            // Destinations without navbar at the bottom
+            screens.forEach { destination ->
+                composableScreen(destination) { destination.destinationScreen(navigation) }
+            }
+
+            // Dialogs
+            dialogs.forEach { destination ->
+                composableDialog(destination) { destination.destinationScreen(navigation) }
+            }
         }
     }
-}
-
-@Composable
-private fun ApplicationLoading(
-    modifier: Modifier = Modifier,
-) = Box(modifier.background(MaterialTheme.colorScheme.background)) {
-    CircularProgressIndicator(
-        Modifier
-            .size(48.dp)
-            .align(Alignment.Center),
-    )
 }

@@ -15,8 +15,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.energopro.android.ui.theme.TemplateStackAnimationProvider
-import com.arkivanov.decompose.extensions.compose.stack.animation.LocalStackAnimationProvider
 
 @Composable
 fun MyApplicationTheme(
@@ -50,7 +48,6 @@ fun MyApplicationTheme(
     )
 
     CompositionLocalProvider(
-        LocalStackAnimationProvider provides TemplateStackAnimationProvider,
     ) {
         MaterialTheme(
             colorScheme = colors,

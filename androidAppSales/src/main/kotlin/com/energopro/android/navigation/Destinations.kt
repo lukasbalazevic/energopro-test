@@ -1,0 +1,95 @@
+package com.energopro.android.navigation
+
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
+
+
+typealias DestinationArgumentKey = String
+typealias DestinationArgumentValue = String
+
+internal val screens = listOf(
+    Destination.Home,
+    Destination.Login,
+)
+
+internal val dialogs = listOf<Destination>()
+
+sealed class Destination(
+    val route: String,
+    val arguments: List<NamedNavArgument> = emptyList(),
+    val deepLinks: List<NavDeepLink> = emptyList(),
+    val destinationScreen: @Composable (router: NavRouter) -> Unit,
+) {
+
+    data object Home : Destination(
+        route = "${Transitions.RoutePrefix.NORMAL_}home",
+        destinationScreen = { Box(Modifier) {
+            Text("Home", modifier = Modifier.align(Alignment.Center))
+        } },
+    )
+
+    data object Login : Destination(
+        route = "${Transitions.RoutePrefix.NORMAL_}login",
+        destinationScreen = { Box(Modifier) {
+            Text("Login", modifier = Modifier.align(Alignment.Center))
+        } },
+    )
+}
+
+
+/**
+ * Registers provided [destination] as a composable in [NavGraphBuilder].
+ */
+fun NavGraphBuilder.composableScreen(
+    destination: Destination,
+    content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
+) = composable(
+    route = destination.route,
+    arguments = destination.arguments,
+    deepLinks = destination.deepLinks,
+    enterTransition = Transitions.enterTransition,
+    exitTransition = Transitions.exitTransition,
+    popEnterTransition = Transitions.popEnterTransition,
+    popExitTransition = Transitions.popExitTransition,
+    content = content,
+)
+
+/**
+ * Registers provided [destination] as a dialog in [NavGraphBuilder].
+ */
+fun NavGraphBuilder.composableDialog(
+    destination: Destination,
+    dialogProperties: DialogProperties = DialogProperties(),
+    content: @Composable (NavBackStackEntry) -> Unit,
+) = dialog(
+    route = destination.route,
+    arguments = destination.arguments,
+    deepLinks = destination.deepLinks,
+    dialogProperties = dialogProperties,
+    content = content,
+)
+
+/**
+ * Replaces an argument placeholder defined by [key] in
+ * route string with value provided in [argument].
+ *
+ * Example:
+ * Route: "emptyScreen/{title}"
+ * key: "title"
+ * argument: "Hello"
+ * Result: "emptyScreen/Hello"
+ */
+@Suppress("unused")
+fun String.withArgument(key: DestinationArgumentKey, argument: DestinationArgumentValue?) =
+    argument?.let { replace("{$key}", it) } ?: this

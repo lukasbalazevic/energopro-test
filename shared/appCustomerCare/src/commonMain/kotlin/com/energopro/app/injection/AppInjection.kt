@@ -1,7 +1,6 @@
 package com.energopro.app.injection
 
 import com.energopro.feature.injection.FeatureModule
-import com.energopro.network.graphql.injection.NetworkGraphqlModule
 import com.energopro.network.rest.injection.NetworkRestModule
 import com.energopro.persistence.injection.persistenceModule
 import com.energopro.platform.binding.PlatformBindings
@@ -28,7 +27,6 @@ internal object AppInjection {
             modules(
                 platformModule(platformBindings = platformBindings),
                 FeatureModule().module,
-                NetworkGraphqlModule().module,
                 NetworkRestModule().module,
                 persistenceModule(),
             )

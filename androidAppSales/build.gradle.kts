@@ -103,7 +103,7 @@ dependencies {
     implementation(projects.shared.appSales)
     implementation(projects.shared.platform)
     implementation(projects.shared.resources)
-    implementation(projects.shared.network)
+    implementation(projects.shared.network.rest)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
@@ -119,8 +119,15 @@ dependencies {
     implementation(libs.kotlinx.immutableCollections)
     implementation(libs.kotlinx.coroutines.core)
 
+    implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.annotations)
+
     implementation(libs.logging.timber)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.navigation)
 
     implementation(libs.androidx.profileinstaller)
     baselineProfile(projects.baselineprofileSales)

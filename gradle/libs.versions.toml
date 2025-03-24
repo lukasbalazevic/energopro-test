@@ -10,6 +10,7 @@ androidxActivity = "1.9.3"
 androidx = "1.15.0"
 appcompat = "1.7.0"
 preference = "1.2.1"
+navigation = "2.8.5"
 decompose = "3.1.0"
 essenty = "2.1.0"
 koin = "3.5.6"
@@ -75,8 +76,12 @@ jetbrains-compose-runtime = { group = "org.jetbrains.compose.runtime", name = "r
 #koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-androidx-compose = {group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin"}
 koin-annotations = { group = "io.insert-koin", name = "koin-annotations", version.ref = "koinAnnotations" }
 koin-ksp-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler", version.ref = "koinAnnotations" }
+
+# Navigation
+navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
 # KotlinX
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
