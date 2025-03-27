@@ -31,11 +31,26 @@ fun MenuScreen(
 ) {
     with(viewModel) {
         EventsEffect {
-            onEvent<NavigateBackEvent> {
-                navigation.popBackStack()
+            onEvent<NavigateToContactsEvent> {
+                navigation.navigateToContacts()
             }
-            onEvent<MenuItemSelectedEvent> { event ->
-                // Handle menu item selection
+            onEvent<NavigateToHelpEvent> {
+                navigation.navigateToHelp()
+            }
+            onEvent<NavigateToMapEvent> {
+                navigation.navigateToMap()
+            }
+            onEvent<NavigateToPodEvent> {
+                navigation.navigateToPod()
+            }
+            onEvent<NavigateToRecontractSearchEvent> {
+                navigation.navigateToRecontractSearch()
+            }
+            onEvent<NavigateToRewardsEvent> {
+                navigation.navigateToRewards()
+            }
+            onEvent<NavigateToSettingsEvent> {
+                navigation.navigateToSettings()
             }
         }
 
@@ -48,8 +63,13 @@ fun MenuScreen(
 object Menu {
     @Stable
     interface Actions {
-        fun onNavigateBack()
-        fun onMenuItemSelected(itemId: String)
+        fun onNavigateToContacts()
+        fun onNavigateToHelp()
+        fun onNavigateToMap()
+        fun onNavigateToPod()
+        fun onNavigateToRecontractSearch()
+        fun onNavigateToRewards()
+        fun onNavigateToSettings()
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -62,13 +82,6 @@ object Menu {
             topBar = {
                 TopAppBar(
                     title = { Text(text = "Menu") },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = { actions.onNavigateBack() },
-                        ) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "")
-                        }
-                    },
                 )
             },
             modifier = modifier,
@@ -80,11 +93,26 @@ object Menu {
                     .fillMaxSize()
                     .padding(contentPadding),
             ) {
-                Button(onClick = { actions.onMenuItemSelected("item1") }) {
-                    Text("Menu Item 1")
+                Button(onClick = { actions.onNavigateToContacts() }) {
+                    Text("Go to Contacts")
                 }
-                Button(onClick = { actions.onMenuItemSelected("item2") }) {
-                    Text("Menu Item 2")
+                Button(onClick = { actions.onNavigateToHelp() }) {
+                    Text("Go to Help")
+                }
+                Button(onClick = { actions.onNavigateToMap() }) {
+                    Text("Go to Map")
+                }
+                Button(onClick = { actions.onNavigateToPod() }) {
+                    Text("Go to Pod")
+                }
+                Button(onClick = { actions.onNavigateToRecontractSearch() }) {
+                    Text("Go to Recontract Search")
+                }
+                Button(onClick = { actions.onNavigateToRewards() }) {
+                    Text("Go to Rewards")
+                }
+                Button(onClick = { actions.onNavigateToSettings() }) {
+                    Text("Go to Settings")
                 }
             }
         }
@@ -96,8 +124,13 @@ object Menu {
 private fun MenuContentPreview() = Showcase {
     Menu.Content(
         actions = object : Menu.Actions {
-            override fun onNavigateBack() = Unit
-            override fun onMenuItemSelected(itemId: String) = Unit
-        },
+            override fun onNavigateToContacts() {}
+            override fun onNavigateToHelp() {}
+            override fun onNavigateToMap() {}
+            override fun onNavigateToPod() {}
+            override fun onNavigateToRecontractSearch() {}
+            override fun onNavigateToRewards() {}
+            override fun onNavigateToSettings() {}
+        }
     )
-} 
+}

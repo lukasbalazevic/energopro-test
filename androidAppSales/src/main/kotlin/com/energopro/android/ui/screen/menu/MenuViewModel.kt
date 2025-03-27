@@ -7,11 +7,32 @@ import org.koin.android.annotation.KoinViewModel
 class MenuViewModel(
     override val viewState: MenuViewState,
 ) : BaseViewModel<MenuViewState>(), Menu.Actions {
-    override fun onNavigateBack() {
-        sendEvent(NavigateBackEvent)
+
+    override fun onNavigateToContacts() {
+        sendEvent(NavigateToContactsEvent)
     }
-    
-    override fun onMenuItemSelected(itemId: String) {
-        sendEvent(MenuItemSelectedEvent(itemId))
+
+    override fun onNavigateToHelp() {
+        sendEvent(NavigateToHelpEvent)
     }
-} 
+
+    override fun onNavigateToMap() {
+        sendEvent(NavigateToMapEvent)
+    }
+
+    override fun onNavigateToPod() {
+        sendEvent(NavigateToPodEvent)
+    }
+
+    override fun onNavigateToRecontractSearch() {
+        sendEvent(NavigateToRecontractSearchEvent)
+    }
+
+    override fun onNavigateToRewards() {
+        sendEvent(NavigateToRewardsEvent)
+    }
+
+    override fun onNavigateToSettings() {
+        sendEvent(NavigateToSettingsEvent)
+    }
+}

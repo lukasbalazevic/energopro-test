@@ -4,11 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -33,6 +30,10 @@ fun LoginScreen(
             onEvent<NavigateBackEvent> {
                 navigation.popBackStack()
             }
+
+            onEvent<NavigateToMenuEvent> {
+                navigation.navigateToMenu()
+            }
         }
 
         Login.Content(
@@ -44,7 +45,7 @@ fun LoginScreen(
 object Login {
     @Stable
     interface Actions {
-        fun onNavigateBack()
+        fun onNavigateToMenu()
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -57,13 +58,6 @@ object Login {
             topBar = {
                 TopAppBar(
                     title = { Text(text = "LoginScreen") },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = { actions.onNavigateBack() },
-                        ) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "")
-                        }
-                    },
                 )
             },
             modifier = modifier,
@@ -75,7 +69,9 @@ object Login {
                     .fillMaxSize()
                     .padding(contentPadding),
             ) {
-                Text(text = "Login")
+                Button(onClick = { actions.onNavigateToMenu() }) {
+                    Text("Go to Menu")
+                }
             }
         }
     }
@@ -86,7 +82,7 @@ object Login {
 private fun LoginContentPreview() = Showcase {
     Login.Content(
         actions = object : Login.Actions {
-            override fun onNavigateBack() = Unit
+            override fun onNavigateToMenu() = Unit
         },
     )
 }

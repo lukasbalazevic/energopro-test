@@ -26,7 +26,7 @@ fun NavGraph(
     navigation: NavRouter = remember { NavRouterImpl(navController) },
 ) {
     val startDestination = if (isFirstRun) {
-        Destination.Home.route
+        Destination.Menu.route
     } else {
         Destination.Login.route
     }

@@ -29,7 +29,6 @@ typealias DestinationArgumentKey = String
 typealias DestinationArgumentValue = String
 
 internal val screens = listOf(
-    Destination.Home,
     Destination.Login,
     Destination.Menu,
     Destination.Contacts,
@@ -50,14 +49,6 @@ sealed class Destination(
     val deepLinks: List<NavDeepLink> = emptyList(),
     val destinationScreen: @Composable (router: NavRouter) -> Unit,
 ) {
-
-    data object Home : Destination(
-        route = "${Transitions.RoutePrefix.NORMAL_}home",
-        destinationScreen = { Box(Modifier) {
-            Text("Home", modifier = Modifier.align(Alignment.Center))
-        } },
-    )
-
     data object Login : Destination(
         route = "${Transitions.RoutePrefix.NORMAL_}login",
         destinationScreen = { Box(Modifier) {
