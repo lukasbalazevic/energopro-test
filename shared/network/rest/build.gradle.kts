@@ -12,7 +12,7 @@ plugins {
     alias(libs.plugins.buildkonfig)
 
     id(libs.plugins.conventions.lint.get().pluginId)
-    id(libs.plugins.conventions.annotationProcessing.get().pluginId)
+    id(libs.plugins.conventions.kmp.annotationProcessing.get().pluginId)
 }
 
 annotations {

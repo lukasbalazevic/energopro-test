@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.firebase.distribution)
 
     id(libs.plugins.conventions.lint.get().pluginId)
+    id(libs.plugins.conventions.native.annotationProcessing.get().pluginId)
 }
 
 kotlin {
@@ -95,7 +96,9 @@ android {
 }
 
 dependencies {
+    ksp(libs.koin.ksp.compiler)
     coreLibraryDesugaring(libs.androidTools.desugarLibs)
+
     lintChecks(libs.lint.compose)
 
     implementation(libs.bundles.support)
@@ -123,6 +126,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.annotations)
+    implementation(libs.arkitekt.usecases)
 
     implementation(libs.logging.timber)
     implementation(libs.kotlinx.serialization.json)

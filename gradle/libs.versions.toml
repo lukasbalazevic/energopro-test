@@ -5,6 +5,7 @@ ksp = "2.1.10-1.0.31" # Must be compatible with: `kotlin`
 desugarLibs = "1.1.5"
 androidxLifecycle = "2.8.7"
 androidxComposeBom = "2024.10.00"
+arkitekt = "5.2.2"
 jetbrainsComposeRuntime = "1.7.0" # Needs to align with version in Compose BOM as closely as possible
 androidxActivity = "1.9.3"
 androidx = "1.15.0"
@@ -48,8 +49,6 @@ poet = "2.0.0"
 project-android-namespace = "com.energopro.android"
 project-shared-app-namespace = "com.energopro.app.android"
 project-shared-feature-namespace = "com.energopro.feature.android"
-project-shared-network-graphql-namespace = "com.energopro.network.graphql.android"
-project-shared-network-graphql-packageName = "com.energopro.network.graphql"
 project-shared-network-rest-namespace = "com.energopro.network.rest.android"
 project-shared-network-rest-packageName = "com.energopro.network.rest"
 project-shared-persistence-namespace = "com.energopro.persistence.android"
@@ -95,9 +94,6 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
-
-
-
 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx" }
@@ -165,6 +161,10 @@ gradlePlugin-ktlint = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle"
 gradlePlugin-detekt = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
 gradlePlugin-ksp = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
+# MVVM
+arkitekt-usecases = { group = "app.futured.arkitekt", name = "cr-usecases", version.ref = "arkitekt" }
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -187,7 +187,8 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # Precompiled script plugins
 conventions-lint = { id = "conventions-lint" }
-conventions-annotationProcessing = { id = "conventions-annotations-processor" }
+conventions-kmp-annotationProcessing = { id = "conventions-kmp-annotations-processor" }
+conventions-native-annotationProcessing = { id = "conventions-native-annotations-processor" }
 
 [bundles]
 

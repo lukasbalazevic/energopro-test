@@ -17,7 +17,7 @@ plugins {
     alias(libs.plugins.moko.resources)
 
     id(libs.plugins.conventions.lint.get().pluginId)
-    id(libs.plugins.conventions.annotationProcessing.get().pluginId)
+    id(libs.plugins.conventions.kmp.annotationProcessing.get().pluginId)
 }
 
 annotations {
